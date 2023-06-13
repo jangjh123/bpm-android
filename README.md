@@ -14,7 +14,7 @@
 ### 100% Kotlin
 
 ## 👨‍🎨 UI
-### <code>Jetpack Compse</code> + <code>XML</code> + <code>Databinding</code>
+### <code>Jetpack Compose</code> + <code>XML</code> + <code>Databinding</code>
 
 ## 🏗 Architecture Pattern
 ### <code>MVI(Model-View-ViewModel)</code> + <code>Clean Architecture</code>
@@ -50,7 +50,7 @@ Design
 Android https://github.com/jangjh123
 
 ## 🙄 What I learend
-- <code>DND</code> 를 통해 IT 동아리를 처음 진행해보면서 **협업이 주는 즐거움** 과 **네트워킹의 중요성** 을 배웠습니다.
+- <code>DND</code> 를 통해 IT 동아리를 처음 진행해보면서 **협업이 주는 즐거움**과 **네트워킹의 중요성** 을 배웠습니다.
 - <code>MVI Architecture</code> 를 처음 도입해보면서 **'Jetpack Compose 와 찰떡궁합인 아키텍처'** 라는 것을 느끼게 되었습니다.
 - <code>Clean Architecture</code> 에 대해 자세히 알게 되었고, 왜 해당 아키텍처가 **많은 이들에게 오랜 시간 사랑 받는지**를 배웠습니다.
 - <code>CoroutineExceptionHandler</code> 를 처음 적용해보면서 **Coroutine 을 안전하게 사용하는 방법**을 알게 되었습니다.
