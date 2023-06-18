@@ -24,7 +24,7 @@
         android:theme="@style/Theme.Bpm"
         tools:targetApi="31">
         <activity
-            android:name="com.team.bpm.presentation.ui.splash.SplashActivity"
+            android:name="com.team.bpm.presentation.ui.intro.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Bpm.NoActionBar">
             <intent-filter>
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.team.bpm.presentation.ui.sign_up.SignUpActivity"
+            android:name="com.team.bpm.presentation.ui.intro.sign_up.SignUpActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar"
@@ -44,48 +44,58 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar" />
         <activity
-            android:name="com.team.bpm.presentation.ui.studio_detail.StudioDetailActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bpm.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.team.bpm.presentation.ui.studio_detail.writing_review.WritingReviewActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bpm.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.team.bpm.presentation.ui.studio_detail.review_detail.ReviewDetailActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bpm.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.team.bpm.presentation.ui.schedule.ScheduleActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bpm.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.team.bpm.presentation.ui.register_studio.RegisterStudioActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bpm.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.team.bpm.presentation.ui.register_studio.register_location.RegisterLocationActivity"
+            android:name=".ui.main.studio.search.SearchActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar" />
         <activity
-            android:name="com.team.bpm.presentation.ui.studio_detail.review_list.ReviewListActivity"
+            android:name=".ui.main.studio.search.result.SearchResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar" />
+        <activity
+            android:name="com.team.bpm.presentation.ui.main.studio.detail.StudioDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.team.bpm.presentation.ui.schedule.select_studio.SelectStudioActivity"
+            android:name="com.team.bpm.presentation.ui.main.studio.detail.writing_review.WritingReviewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.team.bpm.presentation.ui.main.studio.detail.review_detail.ReviewDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.team.bpm.presentation.ui.main.studio.schedule.ScheduleActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.team.bpm.presentation.ui.main.studio.register.RegisterStudioActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.team.bpm.presentation.ui.main.studio.register.register_location.RegisterLocationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar" />
+        <activity
+            android:name="com.team.bpm.presentation.ui.main.studio.detail.review_list.ReviewListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.team.bpm.presentation.ui.main.studio.schedule.select.SelectStudioActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar" />
@@ -114,7 +124,7 @@
             android:theme="@style/Theme.Bpm.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.main.lounge.community.eye_body_posting.EyeBodyPostingActivity"
+            android:name=".ui.main.eyebody.posting.EyeBodyPostingActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar"
@@ -126,6 +136,11 @@
             android:theme="@style/Theme.Bpm.NoActionBar" />
         <activity
             android:name=".ui.main.mypage.myscrap.MyScrapActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar" />
+        <activity
+            android:name=".ui.main.mypage.myquestion.MyQuestionActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar" />

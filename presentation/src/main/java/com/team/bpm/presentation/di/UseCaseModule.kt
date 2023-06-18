@@ -13,6 +13,9 @@ import com.team.bpm.domain.usecase.review.*
 import com.team.bpm.domain.usecase.schedule.EditScheduleUseCase
 import com.team.bpm.domain.usecase.schedule.GetScheduleUseCase
 import com.team.bpm.domain.usecase.schedule.MakeScheduleUseCase
+import com.team.bpm.domain.usecase.search.GetFilteredStudioListUseCase
+import com.team.bpm.domain.usecase.search.GetRecentSearchListUseCase
+import com.team.bpm.domain.usecase.search.SetRecentSearchListUseCase
 import com.team.bpm.domain.usecase.search_studio.SearchStudioUseCase
 import com.team.bpm.domain.usecase.sign_up.SignUpUseCase
 import com.team.bpm.domain.usecase.splash.GetKakaoIdUseCase
@@ -339,6 +342,13 @@ object UseCaseModule {
         return DislikeQuestionCommentUseCase(questionRepository)
     }
 
+    // 마이페이지 - 내 질문 리스트
+    @Provides
+    @ViewModelScoped
+    fun provideMyGetQuestionListUseCase(questionRepository: QuestionRepository): GetMyQuestionListUseCase {
+        return GetMyQuestionListUseCase(questionRepository)
+    }
+
     /* 눈바디 */
 
     @Provides
@@ -359,5 +369,25 @@ object UseCaseModule {
     @ViewModelScoped
     fun provideGetMainTabIndexUseCase(myPageRepository: MyPageRepository): GetMainTabIndexUseCase {
         return GetMainTabIndexUseCase(myPageRepository)
+    }
+
+    /* 검색 */
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetRecentSearchListUseCase(searchRepository: SearchRepository): GetRecentSearchListUseCase {
+        return GetRecentSearchListUseCase(searchRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideSetRecentSearchListUseCase(searchRepository: SearchRepository): SetRecentSearchListUseCase {
+        return SetRecentSearchListUseCase(searchRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetFilteredStudioListUseCase(searchRepository: SearchRepository): GetFilteredStudioListUseCase {
+        return GetFilteredStudioListUseCase(searchRepository)
     }
 }

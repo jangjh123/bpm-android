@@ -18,14 +18,17 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideUserRepository(dataStoreManager: DataStoreManager): UserRepository {
-        return UserRepositoryImpl(dataStoreManager)
+    fun provideHomeRepository(mainApi: MainApi): HomeRepository {
+        return HomeRepositoryImpl(mainApi)
     }
 
     @Singleton
     @Provides
-    fun provideMainRepository(mainApi: MainApi): MainRepository {
-        return MainRepositoryImpl(mainApi)
+    fun provideSearchRepository(
+        dataStoreManager: DataStoreManager,
+        mainApi: MainApi
+    ): SearchRepository {
+        return SearchRepositoryImpl(dataStoreManager, mainApi)
     }
 
     @Singleton
@@ -98,5 +101,11 @@ object RepositoryModule {
     @Provides
     fun provideMyPageRepository(dataStoreManager: DataStoreManager): MyPageRepository {
         return MyPageRepositoryImpl(dataStoreManager)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserRepository(dataStoreManager: DataStoreManager): UserRepository {
+        return UserRepositoryImpl(dataStoreManager)
     }
 }

@@ -39,10 +39,16 @@ interface MainApi {
         @Query("q") query: String
     ): Response<BPMResponseV2<StudioListResponse>>
 
+    @POST("api/studio/filter")
+    suspend fun fetchFilteredStudioList(
+    @Body filteredStudioListRequest: FilteredStudioListRequest
+    ): Response<BPMResponseV2<StudioListResponse>>
+
     @GET("api/studio")
-    suspend fun getStudioList(
+    suspend fun fetchStudioList(
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
+        @Query("condition") type: String
     ): Response<BPMResponseV2<StudioListResponse>>
 
     @GET("api/studio/{studioId}")
@@ -299,6 +305,14 @@ interface MainApi {
         @Path("questionBoardArticleId") questionId: Int,
         @Path("commentId") commentId: Int
     ): Response<BPMResponseV2<ResponseBody>>
+
+    /* 마이페이지 */
+
+    @GET("api/users/question-board")
+    suspend fun fetchMyQuestionList(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ): Response<BPMResponseV2<QuestionListResponse>>
 
     /* 눈바디 */
 

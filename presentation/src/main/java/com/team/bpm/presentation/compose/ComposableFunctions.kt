@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
@@ -68,7 +69,7 @@ import com.team.bpm.presentation.R
 import com.team.bpm.presentation.base.BaseComponentActivityV2
 import com.team.bpm.presentation.compose.theme.*
 import com.team.bpm.presentation.model.BottomSheetButton
-import com.team.bpm.presentation.ui.studio_detail.review_detail.ReviewDetailActivity
+import com.team.bpm.presentation.ui.main.studio.detail.review_detail.ReviewDetailActivity
 import com.team.bpm.presentation.util.calculatedFromNow
 import com.team.bpm.presentation.util.clickableWithoutRipple
 import com.team.bpm.presentation.util.clip
@@ -240,7 +241,7 @@ fun StudioComposable(
 
                     Image(
                         modifier = Modifier.clickableWithoutRipple { studio.id?.let { onClickScrapButton(it) } },
-                        painter = painterResource(id = R.drawable.ic_scrap_active),
+                        painter = painterResource(id = if (scrapped == true) R.drawable.ic_scrap_active else R.drawable.ic_scrap_inactive),
                         contentDescription = "scrapIcon",
                     )
                 }
@@ -558,7 +559,9 @@ fun ReviewComposable(
             BPMSpacer(height = 16.dp)
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
                 horizontalArrangement = SpaceBetween,
                 verticalAlignment = CenterVertically
             ) {
@@ -590,7 +593,7 @@ fun ReviewComposable(
             BPMSpacer(height = 12.dp)
 
             rating?.let {
-                Row {
+                Row(modifier = Modifier.padding(start = 16.dp)) {
                     for (i in 1..5) {
                         Image(
                             modifier = Modifier.size(15.dp),
@@ -611,35 +614,45 @@ fun ReviewComposable(
                 LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp)
                 ) {
                     items(it) { keyword ->
-                        ReadOnlyKeywordChip(text = keyword)
+                        ReadOnlyKeywordChip(
+                            modifier = Modifier.alpha(if (reported == false) 1f else 0.3f),
+                            text = keyword
+                        )
                     }
                 }
             }
 
             BPMSpacer(height = 14.dp)
 
-            filesPath?.let {
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    repeat(it.size) { index ->
-                        GlideImage(
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(60.dp),
-                            model = it[index],
-                            contentDescription = "reviewImage",
-                            contentScale = ContentScale.Crop
-                        )
+            if (reported == false) {
+                filesPath?.let {
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth()
+                    ) {
+                        repeat(it.size) { index ->
+                            GlideImage(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(60.dp),
+                                model = it[index],
+                                contentDescription = "reviewImage",
+                                contentScale = ContentScale.Crop
+                            )
 
-                        BPMSpacer(width = 4.dp)
-                    }
-
-                    repeat(5 - it.size) { index ->
-                        Box(modifier = Modifier.weight(1f))
-
-                        if (index == 5 - it.size - 1) {
                             BPMSpacer(width = 4.dp)
+                        }
+
+                        repeat(5 - it.size) { index ->
+                            Box(modifier = Modifier.weight(1f))
+
+                            if (index == 5 - it.size - 1) {
+                                BPMSpacer(width = 4.dp)
+                            }
                         }
                     }
                 }
@@ -648,8 +661,10 @@ fun ReviewComposable(
             BPMSpacer(height = 10.dp)
 
             Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = content ?: "",
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
+                text = if (reported == true) "신고 정책에 의해 숨김 처리된 리뷰입니다." else content ?: "",
                 fontWeight = Normal,
                 fontSize = 13.sp,
                 letterSpacing = 0.sp,
@@ -658,25 +673,28 @@ fun ReviewComposable(
                 overflow = TextOverflow.Ellipsis
             )
 
-            BPMSpacer(height = 25.dp)
+            if (reported != true) {
+                BPMSpacer(height = 25.dp)
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = CenterVertically,
+                    horizontalArrangement = SpaceBetween
+                ) {
+                    LikeButton(
+                        liked = liked ?: false,
+                        likeCount = likeCount ?: 0,
+                        onClick = { review.id?.let { reviewId -> onClickLike(reviewId) } }
+                    )
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = CenterVertically,
-                horizontalArrangement = SpaceBetween
-            ) {
-                LikeButton(
-                    liked = liked ?: false,
-                    likeCount = likeCount ?: 0,
-                    onClick = { review.id?.let { reviewId -> onClickLike(reviewId) } }
-                )
-
-                Icon(
-                    modifier = Modifier.clickableWithoutRipple { onClickActionButton() },
-                    painter = painterResource(id = R.drawable.ic_edit),
-                    contentDescription = "editIcon",
-                    tint = GrayColor4
-                )
+                    Icon(
+                        modifier = Modifier.clickableWithoutRipple { onClickActionButton() },
+                        painter = painterResource(id = R.drawable.ic_edit),
+                        contentDescription = "editIcon",
+                        tint = GrayColor4
+                    )
+                }
             }
         }
 
@@ -756,8 +774,8 @@ inline fun ClickableKeywordChip(
             )
             .clickableWithoutRipple { onClick() },
         text = keyword.keyword ?: "",
-        fontWeight = Medium,
-        fontSize = 12.sp,
+        fontWeight = if (isChosen) SemiBold else Normal,
+        fontSize = 13.sp,
         letterSpacing = 0.sp,
         color = if (isChosen) MainBlackColor else GrayColor4
     )
@@ -765,10 +783,11 @@ inline fun ClickableKeywordChip(
 
 @Composable
 fun ReadOnlyKeywordChip(
+    modifier: Modifier = Modifier,
     text: String
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(shape = RoundedCornerShape(60.dp))
             .background(color = GrayColor9),
     ) {
