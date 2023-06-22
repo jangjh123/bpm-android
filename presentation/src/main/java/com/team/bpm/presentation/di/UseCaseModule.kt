@@ -7,8 +7,6 @@ import com.team.bpm.domain.usecase.review.GetKeywordListUseCase
 import com.team.bpm.domain.usecase.mypage.GetMainTabIndexUseCase
 import com.team.bpm.domain.usecase.mypage.SetMainTabIndexUseCase
 import com.team.bpm.domain.usecase.question.*
-import com.team.bpm.domain.usecase.register_studio.RegisterStudioUseCase
-import com.team.bpm.domain.usecase.register_studio.register_location.GetAddressNameUseCase
 import com.team.bpm.domain.usecase.review.*
 import com.team.bpm.domain.usecase.schedule.EditScheduleUseCase
 import com.team.bpm.domain.usecase.schedule.GetScheduleUseCase
@@ -72,20 +70,8 @@ object UseCaseModule {
 
     @Provides
     @ViewModelScoped
-    fun provideRegisterStudioUseCase(registerStudioRepository: RegisterStudioRepository): RegisterStudioUseCase {
-        return RegisterStudioUseCase(registerStudioRepository)
-    }
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetAddressNameUseCase(registerStudioRepository: RegisterStudioRepository): GetAddressNameUseCase {
-        return GetAddressNameUseCase(registerStudioRepository)
-    }
-
-    @Provides
-    @ViewModelScoped
-    fun provideSearchStudioUseCase(searchStudioRepository: SearchStudioRepository): SearchStudioUseCase {
-        return SearchStudioUseCase(searchStudioRepository)
+    fun provideSearchStudioUseCase(searchRepository: SearchRepository): SearchStudioUseCase {
+        return SearchStudioUseCase(searchRepository)
     }
 
     @Provides
