@@ -55,5 +55,5 @@ Android https://github.com/jangjh123
 - <code>Clean Architecture</code> 에 대해 자세히 알게 되었고, 왜 해당 아키텍처가 **많은 이들에게 오랜 시간 사랑 받는지**를 배웠습니다.
 - <code>CoroutineExceptionHandler</code> 를 처음 적용해보면서 **Coroutine 을 안전하게 사용하는 방법**을 알게 되었습니다.
 - <code>Jetpack Compose</code> 의 <code>Android View</code> 를 통해 **Composable 이 없는 라이브러리**를 Compose 환경에 적용하는 방법에 대해 알게 되었습니다.
-- [**Compose 환경에서 <code>LazyColumn</code> 또는 <code>LazyRow</code> 의 이미지를 올바르게 제거하는 방법**](https://blothhundr.tistory.com/139)을 배웠습니다. 
+- [**Compose 환경에서 <code>LazyColumn</code> 또는 <code>LazyRow</code> 의 아이템을 올바르게 제거하는 방법**](https://blothhundr.tistory.com/139)을 배웠습니다. 
 - [**Compose 환경에서 List 내 Item 의 Field 수정이 UI 업데이트를 트리거하는 방법**](https://blothhundr.tistory.com/143)을 알게 되었습니다.
