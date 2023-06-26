@@ -17,7 +17,7 @@
 ### <code>Jetpack Compose</code> + <code>XML</code> + <code>Databinding</code>
 
 ## 🏗 Architecture Pattern
-### <code>MVI(Model-View-ViewModel)</code> + <code>Clean Architecture</code>
+### <code>MVI(Model-View-ViewModel)</code> + <code>Clean Architecture</code> + <code>Modularization</code>
   
 ## 🛠 Used Skill & Library
 ### <code>Retrofit2</code> 
