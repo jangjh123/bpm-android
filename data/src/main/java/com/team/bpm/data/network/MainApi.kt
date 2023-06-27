@@ -31,10 +31,12 @@ interface MainApi {
     suspend fun fetchUserProfile(): Response<BPMResponseV2<UserProfileResponse>>
 
     @Multipart
-    @PUT("api/users")
+    @PUT("api/profile")
     suspend fun sendEditedUserProfile(
-        @Part profileRequest: ProfileRequest,
-        @Part file: MultipartBody.Part
+        @Part("kakaoId") kakaoId: Long,
+        @Part("nickname") nickname: String,
+        @Part("bio") bio: String,
+        @Part file: MultipartBody.Part,
     ): Response<BPMResponseV2<ResponseBody>>
 
     /* 스튜디오 */
@@ -80,24 +82,27 @@ interface MainApi {
 
     /* 일정 */
 
+    @GET("api/users/schedule")
+    suspend fun getUserSchedule(): Response<BPMResponseV2<BodyShapeSchedulesResponse>>
+
     @POST("api/users/schedule")
-    suspend fun sendSchedule(
-        @Body schedule: ScheduleRequest
-    ): Response<BPMResponseV2<UserScheduleResponse>>
+    suspend fun sendAlbum(
+        @Body album: AlbumRequest
+    ): Response<BPMResponseV2<AlbumResponse>>
 
     @PUT("api/users/schedule/{scheduleId}")
-    suspend fun sendEditedSchedule(
-        @Path("scheduleId") scheduleId: Int,
-        @Body scheduleRequest: ScheduleRequest
-    ): Response<BPMResponseV2<UserScheduleResponse>>
+    suspend fun sendEditedAlbum(
+        @Path("albumId") albumId: Int,
+        @Body albumRequest: AlbumRequest
+    ): Response<BPMResponseV2<AlbumResponse>>
 
     @GET("api/users/schedule/{scheduleId}")
-    suspend fun fetchSchedule(
-        @Path("scheduleId") scheduleId: Int
-    ): Response<BPMResponseV2<UserScheduleResponse>>
+    suspend fun fetchAlbum(
+        @Path("albumId") albumId: Int
+    ): Response<BPMResponseV2<AlbumResponse>>
 
     @GET("api/users/schedule")
-    suspend fun getUserSchedule(): Response<UserScheduleResponse>
+    suspend fun getAlbum(): Response<AlbumResponse>
 
     /* 리뷰 */
 
@@ -322,9 +327,31 @@ interface MainApi {
     /* 눈바디 */
 
     @Multipart
-    @POST("api/community/body-shape")
-    suspend fun sendEyeBody(
+    @POST("api/users/schedule/{scheduleId}/body-shape")
+    suspend fun sendBodyShape(
+        @Path("scheduleId") albumId: Int,
         @Part("content") content: String,
         @Part files: List<MultipartBody.Part>,
-    ): Response<BPMResponseV2<EyeBodyResponse>>
+    ): Response<BPMResponseV2<BodyShapeResponse>>
+
+    @Multipart
+    @PUT("api/users/schedule/{scheduleId}/body-shape/{bodyShapeId}")
+    suspend fun sendEditedBodyShape(
+        @Path("scheduleId") albumId: Int,
+        @Path("bodyShapeId") bodyShapeId: Int,
+        @Part("content") content: String,
+        @Part files: List<MultipartBody.Part>,
+    ): Response<BPMResponseV2<BodyShapeResponse>>
+
+    @DELETE("api/users/schedule/{scheduleId}/body-shape/{bodyShapeId}")
+    suspend fun deleteBodyShape(
+        @Path("scheduleId") albumId: Int,
+        @Path("bodyShapeId") bodyShapeId: Int
+    ): Response<BPMResponseV2<ResponseBody>>
+
+    @GET("api/users/schedule/{scheduleId}/body-shape/{bodyShapeId}")
+    suspend fun fetchBodyShape(
+        @Path("scheduleId") albumId: Int,
+        @Path("bodyShapeId") bodyShapeId: Int
+    ): Response<BPMResponseV2<BodyShapeResponse>>
 }

@@ -1,16 +1,15 @@
 package com.team.bpm.presentation.di
 
 import com.team.bpm.domain.repository.*
+import com.team.bpm.domain.usecase.body_shape.*
 import com.team.bpm.domain.usecase.community.*
-import com.team.bpm.domain.usecase.eye_body.WriteEyeBodyUseCase
-import com.team.bpm.domain.usecase.review.GetKeywordListUseCase
+import com.team.bpm.domain.usecase.making_album.EditAlbumUseCase
+import com.team.bpm.domain.usecase.making_album.GetAlbumUseCase
+import com.team.bpm.domain.usecase.making_album.MakeAlbumUseCase
 import com.team.bpm.domain.usecase.mypage.GetMainTabIndexUseCase
 import com.team.bpm.domain.usecase.mypage.SetMainTabIndexUseCase
 import com.team.bpm.domain.usecase.question.*
 import com.team.bpm.domain.usecase.review.*
-import com.team.bpm.domain.usecase.schedule.EditScheduleUseCase
-import com.team.bpm.domain.usecase.schedule.GetScheduleUseCase
-import com.team.bpm.domain.usecase.schedule.MakeScheduleUseCase
 import com.team.bpm.domain.usecase.search.GetFilteredStudioListUseCase
 import com.team.bpm.domain.usecase.search.GetRecentSearchListUseCase
 import com.team.bpm.domain.usecase.search.SetRecentSearchListUseCase
@@ -22,6 +21,7 @@ import com.team.bpm.domain.usecase.studio.GetMyScrapListUseCase
 import com.team.bpm.domain.usecase.studio.GetStudioDetailUseCase
 import com.team.bpm.domain.usecase.studio.ScrapCancelUseCase
 import com.team.bpm.domain.usecase.studio.ScrapUseCase
+import com.team.bpm.domain.usecase.user.EditUserProfileUseCase
 import com.team.bpm.domain.usecase.user.GetUserIdUseCase
 import com.team.bpm.domain.usecase.user.SetUserIdUseCase
 import dagger.Module
@@ -62,8 +62,14 @@ object UseCaseModule {
 
     @Provides
     @ViewModelScoped
-    fun provideSetUserIdUseCase(userRepository: UserRepository) : SetUserIdUseCase {
+    fun provideSetUserIdUseCase(userRepository: UserRepository): SetUserIdUseCase {
         return SetUserIdUseCase(userRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideEditUserProfileUseCase(userRepository: UserRepository): EditUserProfileUseCase {
+        return EditUserProfileUseCase(userRepository)
     }
 
     /* 스튜디오 */
@@ -102,20 +108,20 @@ object UseCaseModule {
 
     @Provides
     @ViewModelScoped
-    fun provideMakeScheduleUseCase(scheduleRepository: ScheduleRepository): MakeScheduleUseCase {
-        return MakeScheduleUseCase(scheduleRepository)
+    fun provideMakeAlbumUseCase(bodyShapeRepository: BodyShapeRepository): MakeAlbumUseCase {
+        return MakeAlbumUseCase(bodyShapeRepository)
     }
 
     @Provides
     @ViewModelScoped
-    fun provideEditScheduleUseCase(scheduleRepository: ScheduleRepository): EditScheduleUseCase {
-        return EditScheduleUseCase(scheduleRepository)
+    fun provideEditAlbumUseCase(bodyShapeRepository: BodyShapeRepository): EditAlbumUseCase {
+        return EditAlbumUseCase(bodyShapeRepository)
     }
 
     @Provides
     @ViewModelScoped
-    fun provideGetScheduleUseCase(scheduleRepository: ScheduleRepository): GetScheduleUseCase {
-        return GetScheduleUseCase(scheduleRepository)
+    fun provideGetAlbumUseCase(bodyShapeRepository: BodyShapeRepository): GetAlbumUseCase {
+        return GetAlbumUseCase(bodyShapeRepository)
     }
 
     /* 리뷰 */
@@ -339,8 +345,26 @@ object UseCaseModule {
 
     @Provides
     @ViewModelScoped
-    fun provideWriteEyeBodyUseCase(eyeBodyRepository: EyeBodyRepository): WriteEyeBodyUseCase {
-        return WriteEyeBodyUseCase(eyeBodyRepository)
+    fun provideWriteBodyShapeUseCase(bodyShapeRepository: BodyShapeRepository): WriteBodyShapeUseCase {
+        return WriteBodyShapeUseCase(bodyShapeRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideEditBodyShapeUseCase(bodyShapeRepository: BodyShapeRepository): EditBodyShapeUseCase {
+        return EditBodyShapeUseCase(bodyShapeRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideDeleteBodyShapeUseCase(bodyShapeRepository: BodyShapeRepository): DeleteBodyShapeUseCase {
+        return DeleteBodyShapeUseCase(bodyShapeRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetBodyShapeUseCase(bodyShapeRepository: BodyShapeRepository): GetBodyShapeUseCase {
+        return GetBodyShapeUseCase(bodyShapeRepository)
     }
 
     /* 마이페이지 */

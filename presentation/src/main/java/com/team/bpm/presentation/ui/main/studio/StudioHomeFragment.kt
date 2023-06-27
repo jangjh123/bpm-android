@@ -16,13 +16,12 @@ import com.team.bpm.presentation.model.MainBanner
 import com.team.bpm.presentation.model.StudioMainTabType
 import com.team.bpm.presentation.ui.main.MainActivity
 import com.team.bpm.presentation.ui.main.MainViewModel
-import com.team.bpm.presentation.ui.main.eyebody.posting.EyeBodyPostingActivity
 import com.team.bpm.presentation.ui.main.studio.banner.BannerListAdapter
 import com.team.bpm.presentation.ui.main.studio.recommend.StudioHomeRecommendFragment
-import com.team.bpm.presentation.util.BasePagerAdapter
+import com.team.bpm.presentation.ui.main.studio.search.SearchActivity
 import com.team.bpm.presentation.util.BannerPagerIndicatorDecoration
+import com.team.bpm.presentation.util.BasePagerAdapter
 import com.team.bpm.presentation.util.repeatCallDefaultOnStarted
-import com.team.bpm.presentation.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -30,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class StudioHomeFragment :
     BaseFragment<FragmentStudioHomeBinding>(FragmentStudioHomeBinding::inflate) {
 
-    private lateinit var scheduleResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var albumResultLauncher: ActivityResultLauncher<Intent>
 
     private val activityViewModel: MainViewModel by activityViewModels()
 
@@ -51,7 +50,7 @@ class StudioHomeFragment :
                 goToRegisterStore()
             }
             MainBanner.WRITE -> {
-                goToWriteEyebody()
+                goToWriteBodyShape()
             }
             MainBanner.LOUNGE -> {
                 goToLounge()
@@ -67,9 +66,9 @@ class StudioHomeFragment :
             lifecycleOwner = viewLifecycleOwner
         }
 
-        scheduleResultLauncher =
+        albumResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                viewModel.refreshUserSchedule()
+                viewModel.refreshAlbum()
             }
 
         setupPager()
@@ -81,9 +80,9 @@ class StudioHomeFragment :
             viewModel.state.collect { state ->
                 when (state) {
                     StudioHomeState.Init -> {
-                        viewModel.getUserSchedule()
+                        viewModel.getAlbum()
                     }
-                    StudioHomeState.UserSchedule -> Unit
+                    StudioHomeState.Album -> Unit
                     StudioHomeState.Error -> {
                         // TODO : Error Handling
                     }
@@ -95,10 +94,10 @@ class StudioHomeFragment :
             viewModel.event.collect { event ->
                 when (event) {
                     StudioHomeViewEvent.ClickSearch -> {
-                        requireContext().showToast("검색페이지 이동")
+                        goToSearch()
                     }
-                    StudioHomeViewEvent.ClickSchedule -> {
-                        goToSchedule()
+                    StudioHomeViewEvent.ClickAlbum -> {
+                        goToAlbum()
                     }
                 }
             }
@@ -169,17 +168,21 @@ class StudioHomeFragment :
         }
     }
 
-    private fun goToSchedule() {
-//        scheduleResultLauncher.launch(ScheduleActivity.newIntent(requireContext())) // TODO : 스케쥴 아이디를 받도록 수정되었습니다!
+    private fun goToAlbum() {
+//        albumResultLauncher.launch(AlbumActivity.newIntent(requireContext())) // TODO : 스케쥴 아이디를 받도록 수정되었습니다!
+    }
+
+    private fun goToSearch() {
+        startActivity(SearchActivity.newIntent(requireContext()))
     }
 
     private fun goToRegisterStore() {
         // TODO : 구글폼 주소 필요
     }
 
-    private fun goToWriteEyebody() {
+    private fun goToWriteBodyShape() {
         // 눈바디 기록하기 페이지 이동
-        startActivity(EyeBodyPostingActivity.newIntent(requireContext()))
+//        startActivity(BodyShapePostingActivity.newIntent(requireContext()))
     }
 
     private fun goToLounge() {
