@@ -37,7 +37,7 @@ interface MainApi {
         @Part("nickname") nickname: String,
         @Part("bio") bio: String,
         @Part file: MultipartBody.Part,
-    ): Response<BPMResponseV2<ResponseBody>>
+    ): Response<BPMResponseV2<UserProfileResponse>>
 
     /* 스튜디오 */
 
@@ -83,7 +83,12 @@ interface MainApi {
     /* 일정 */
 
     @GET("api/users/schedule")
-    suspend fun getUserSchedule(): Response<BPMResponseV2<BodyShapeSchedulesResponse>>
+    suspend fun fetchUserSchedule(): Response<BPMResponseV2<BodyShapeSchedulesResponse>>
+
+    @GET("api/users/schedule/{scheduleId}")
+    suspend fun fetchAlbumInfo(
+        @Path("scheduleId") scheduleId: Int
+    ): Response<BPMResponseV2<BodyShapeScheduleResponse>>
 
     @POST("api/users/schedule")
     suspend fun sendAlbum(
@@ -324,6 +329,13 @@ interface MainApi {
         @Query("size") size: Int,
     ): Response<BPMResponseV2<QuestionListResponse>>
 
+    @GET("api/users/community")
+    suspend fun fetchMyPostList(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String = "createdDate",
+    ): Response<BPMResponseV2<CommunityListResponse>>
+
     /* 눈바디 */
 
     @Multipart
@@ -354,4 +366,18 @@ interface MainApi {
         @Path("scheduleId") albumId: Int,
         @Path("bodyShapeId") bodyShapeId: Int
     ): Response<BPMResponseV2<BodyShapeResponse>>
+
+    /* 알림 */
+    @GET("api/users/alarm")
+    suspend fun fetchNotificationList(
+        @Query("page") page: Int,
+        @Query("size") size: Int = 30,
+        @Query("sort") sort: String = "createdDate"
+    ): Response<BPMResponseV2<NotificationListResponse>>
+
+    @POST("api/users/alarm/{alarmId}")
+    suspend fun setNotificationIsRead(
+        @Path("alarmId") alarmId: Long
+    ): Response<BPMResponseV2<ResponseBody>>
+
 }

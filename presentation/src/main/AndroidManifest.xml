@@ -75,8 +75,7 @@
             android:name="com.team.bpm.presentation.ui.main.bodyshape.album.add.BodyShapeAlbumAddActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Bpm.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:theme="@style/Theme.Bpm.NoActionBar"/>
         <activity
             android:name="com.team.bpm.presentation.ui.main.studio.detail.review_list.ReviewListActivity"
             android:exported="false"
@@ -124,8 +123,7 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.mypage.starttab.MyPageStartTabActivity"
             android:exported="false"
@@ -141,10 +139,26 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Bpm.NoActionBar" />
+        <activity
+            android:name=".ui.main.mypage.edit_profile.EditProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar" />
+        <activity
+            android:name=".ui.main.mypage.notification.MyPageNotificationActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar" />
 
         <activity
-            android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
-            android:exported="true" />
+            android:name=".ui.main.mypage.mypost.MyPostActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Bpm.NoActionBar" />
+
+<!--        <activity-->
+<!--            android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"-->
+<!--            android:exported="true" />-->
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

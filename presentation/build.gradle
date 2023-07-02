@@ -88,6 +88,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "androidx.navigation:navigation-fragment-ktx:2.6.0-alpha04"
     implementation "androidx.navigation:navigation-ui-ktx:2.6.0-alpha04"
+    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
 
     //databinding
     implementation "androidx.databinding:databinding-ktx:7.4.1"
@@ -178,9 +179,9 @@ dependencies {
     implementation "joda-time:joda-time:2.10.13"
 
     // Flipper
-    debugImplementation 'com.facebook.flipper:flipper:0.182.0'
-    debugImplementation 'com.facebook.soloader:soloader:0.10.4'
-    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.182.0'
+//    debugImplementation 'com.facebook.flipper:flipper:0.182.0'
+//    debugImplementation 'com.facebook.soloader:soloader:0.10.4'
+//    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.182.0'
 
-    releaseImplementation 'com.facebook.flipper:flipper-noop:0.182.0'
+//    releaseImplementation 'com.facebook.flipper:flipper-noop:0.182.0'
 }
