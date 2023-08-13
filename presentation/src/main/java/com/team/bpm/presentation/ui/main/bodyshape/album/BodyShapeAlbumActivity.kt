@@ -6,6 +6,8 @@ import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import com.team.bpm.presentation.base.BaseActivity
 import com.team.bpm.presentation.databinding.ActivityBodyshapeAlbumBinding
+import com.team.bpm.presentation.ui.main.bodyshape.album.add.BodyShapeAlbumAddActivity
+import com.team.bpm.presentation.ui.main.bodyshape.album.more.BodyShapeAlbumMoreBottomSheet
 import com.team.bpm.presentation.ui.main.bodyshape.detail.BodyShapeDetailActivity
 import com.team.bpm.presentation.ui.main.bodyshape.detail.posting.BodyShapeDetailPostingActivity
 import com.team.bpm.presentation.util.repeatCallDefaultOnStarted
@@ -36,11 +38,20 @@ class BodyShapeAlbumActivity :
                     is BodyShapeAlbumContract.Effect.ShowToast -> {
                         showToast(effect.text)
                     }
+                    BodyShapeAlbumContract.Effect.ShowMoreBottomSheet -> {
+                        showMoreBottomSheet()
+                    }
+                    BodyShapeAlbumContract.Effect.GoOutThisPage -> {
+                        finish()
+                    }
+                    is BodyShapeAlbumContract.Effect.GoToEditAlbumDetail -> {
+                        goToEditAlbumDetail(effect.albumId)
+                    }
                     is BodyShapeAlbumContract.Effect.GoToAddBodyShapeDetail -> {
                         goToAddBodyShapeDetail(effect.albumId)
                     }
                     is BodyShapeAlbumContract.Effect.GoToBodyShapeDetail -> {
-                        goToBodyShapeDetail(effect.albumId, effect.albumDetailId)
+                        goToBodyShapeDetail(effect.albumId, effect.albumDetailId, effect.dday)
                     }
                 }
             }
@@ -48,17 +59,26 @@ class BodyShapeAlbumActivity :
     }
 
     override fun onResume() {
-        viewModel.getBodyShapeAlbumInfo()
-
         super.onResume()
+
+        viewModel.getBodyShapeAlbumInfo()
+    }
+
+    private fun showMoreBottomSheet() {
+        BodyShapeAlbumMoreBottomSheet.newInstance()
+            .show(supportFragmentManager, BodyShapeAlbumMoreBottomSheet::class.java.simpleName)
     }
 
     private fun goToAddBodyShapeDetail(albumId: Int) {
         startActivity(BodyShapeDetailPostingActivity.newIntent(this, albumId))
     }
 
-    private fun goToBodyShapeDetail(albumId: Int, albumDetailId: Int) {
-        startActivity(BodyShapeDetailActivity.newIntent(this, albumId, albumDetailId))
+    private fun goToEditAlbumDetail(albumId: Int) {
+        startActivity(BodyShapeAlbumAddActivity.newIntent(this, albumId))
+    }
+
+    private fun goToBodyShapeDetail(albumId: Int, albumDetailId: Int, dday: Int) {
+        startActivity(BodyShapeDetailActivity.newIntent(this, albumId, albumDetailId, dday))
     }
 
     companion object {

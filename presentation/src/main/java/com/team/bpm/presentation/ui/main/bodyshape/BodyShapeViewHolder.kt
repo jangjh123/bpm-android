@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.team.bpm.domain.model.BodyShapeSchedule
 import com.team.bpm.presentation.R
 import com.team.bpm.presentation.databinding.ItemBodyshapeBinding
-import com.team.bpm.presentation.util.bindImageSrc
 import com.team.bpm.presentation.util.bindImageUrl
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -20,17 +19,23 @@ class BodyShapeViewHolder(
     fun bind(
         item: BodyShapeSchedule,
         listener: ((Int) -> Unit),
-        imageClickListener: ((Int) -> Unit)
+        imageClickListener: ((Int, Int?) -> Unit)
     ) {
         binding.item = item
 
         with(binding) {
             val dateObject = DateTime.parse(item.date, DateTimeFormat.forPattern("yyyy-MM-dd"))
-            val datePrefix = if (item.dday > 0) "+" else ""
+            val datePrefix = if (item.dday >= 0) "+" else ""
 
             dDay.text = "D${datePrefix}${item.dday}"
             date.text = dateObject.toString("yyyy.MM.dd")
             name.text = item.scheduleName
+
+            labelToday.text = if (item.dday > 0) {
+                "완료"
+            } else {
+                "오늘"
+            }
 
             val containerBackground = if (item.dday > 0) {
                 AppCompatResources.getDrawable(root.context, R.drawable.bg_bodyshape_last)
@@ -42,9 +47,10 @@ class BodyShapeViewHolder(
 
             container.background = containerBackground
 
-            image.bindImageUrl(item.imagePath)
-
-            labelToday.isVisible = item.isTodayPost == true
+            if (item.isTodayPost == true) {
+                image.bindImageUrl(item.imagePath)
+                labelToday.isVisible = true
+            }
         }
 
         binding.container.setOnClickListener {
@@ -52,10 +58,13 @@ class BodyShapeViewHolder(
         }
 
         binding.containerImage.setOnClickListener {
-            if(item.imagePath.isNullOrEmpty()) {
-                item.id?.let(listener)
+            if (!item.imagePath.isNullOrEmpty()) {
+                item.id?.let { albumId ->
+                    val bodyShapeDetailId = item.bodyShapeList?.bodyShapeDetails?.firstOrNull()?.id
+                    imageClickListener.invoke(albumId, if(item.isTodayPost == true) bodyShapeDetailId else null)
+                }
             } else {
-                item.id?.let(imageClickListener)
+                item.id?.let(listener)
             }
         }
     }
